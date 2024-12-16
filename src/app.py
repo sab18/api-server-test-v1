@@ -5,10 +5,21 @@ from dash.dependencies import Input, Output, State
 import gspread
 from google.oauth2.service_account import Credentials
 
+
+import os
+import json
+
+credentials_content = os.getenv("CREDENTIALS_JSON")
+credentials_file='credentials2.json'
+with open(credentials_file, "w") as f:
+    f.write(credentials_content)
+
+# creds_path = os.getenv("api_credentials_path")
+
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets"
 ]
-creds = Credentials.from_service_account_file("src/credentials.json", scopes=scopes)
+creds = Credentials.from_service_account_file("credentials2.json", scopes=scopes)
 client = gspread.authorize(creds)
 sheet_id = "1Xp3jzJsTYeyJ5dE-uqeB0soCpsEFic2FgQvSO4JJ3zk"
 
